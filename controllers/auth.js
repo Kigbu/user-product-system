@@ -29,10 +29,8 @@ module.exports = {
       phone,
     });
 
-    // res.cookie('username', username, { secure: true })
-    // alert("Account successfully created");
-    res.status(200).redirect("/auth/login");
-    // res.status(200).json({ success: true, data: user });
+    // res.status(200).redirect("/auth/login");
+    res.status(200).json({ success: true, data: user });
   },
   login: async (req, res) => {
     const { email, password } = req.body;
@@ -56,7 +54,7 @@ module.exports = {
 
     const token = User.generateAuthentication(user.id, user.email);
     res.cookie("access_token", token, { secure: true, maxAge: 1 * 3600000 });
-    res.redirect(`/dashboard/${user.id}`);
-    // res.status(200).json({ success: true, access_token: token });
+    // res.redirect(`/dashboard/${user.id}`);
+    res.status(200).json({ success: true, access_token: token });
   },
 };

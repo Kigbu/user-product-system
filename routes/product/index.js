@@ -12,4 +12,7 @@ router.put("/update/:productId", authenticate, product.updateProduct);
 // get user products
 router.get("/my-products", authenticate, product.getMyProducts);
 
+// delete product
+router.delete("/delete/:productId", authenticate, product.deleteProduct);
+
 module.exports = router;

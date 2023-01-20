@@ -15,7 +15,7 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-// clogin
+// login
 router.post("/login", auth.login);
 
 module.exports = router;

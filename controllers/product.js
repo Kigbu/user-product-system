@@ -91,4 +91,36 @@ module.exports = {
 
     res.status(200).json({ success: true, data: products });
   },
+
+  deleteProduct: async (req, res) => {
+    const { productId } = req.params;
+    const { userId, email } = req.user;
+
+    // verify user
+    const user = await User.findOne({ where: { email: email } });
+    if (!user)
+      return res.status(400).json({
+        success: false,
+        data: "Invalid User! Please Login to delete product",
+      });
+
+    const product = await Product.findOne({
+      where: { id: productId, userId: userId },
+    });
+
+    if (!product)
+      return res.status(400).json({
+        success: false,
+        data: "Product record not found! Try again",
+      });
+
+    const deleleProduct = await Product.destroy({
+      where: { id: productId, userId: userId },
+    });
+
+    if (deleleProduct)
+      res
+        .status(200)
+        .json({ success: true, data: "Product deleted successfully" });
+  },
 };
